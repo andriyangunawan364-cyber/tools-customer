@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utility Hub - Smart Tools</title>
+
+  <link rel="stylesheet" href="tools.css">
+
+  <!-- QR Scanner -->
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script src="tools.js" defer></script>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">✦</div>
+    <div>
+      <strong>Utility Hub</strong>
+      <small>Smart Tools Sehari-hari</small>
+    </div>
+  </div>
+
+  <button id="themeBtn" class="theme-btn">☀️</button>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div>
+      <span class="label">ALL IN ONE TOOLS</span>
+
+      <h1>
+        Semua alat penting
+        <span>dalam satu website.</span>
+      </h1>
+
+      <p>
+        Kalkulator, stopwatch, QR scanner, GPS, arah kiblat,
+        cuaca dan berbagai alat praktis lainnya.
+      </p>
+    </div>
+
+    <div class="clock-box">
+      <div id="liveClock">00:00:00</div>
+      <small id="liveDate">Loading...</small>
+    </div>
+  </section>
+
+  <!-- MENU -->
+
+  <nav class="tabs">
+
+    <button class="tab active" data-target="calculator">
+      🧮 Kalkulator
+    </button>
+
+    <button class="tab" data-target="stopwatch">
+      ⏱️ Stopwatch
+    </button>
+
+    <button class="tab" data-target="qr">
+      📱 QR Scanner
+    </button>
+
+    <button class="tab" data-target="gps">
+      📍 GPS
+    </button>
+
+    <button class="tab" data-target="qibla">
+      🕋 Arah Kiblat
+    </button>
+
+    <button class="tab" data-target="weather">
+      ☁️ Cuaca
+    </button>
+
+    <button class="tab" data-target="tools">
+      🧰 Lainnya
+    </button>
+
+  </nav>
+
+
+  <!-- KALKULATOR -->
+
+  <section id="calculator" class="panel active">
+
+    <div class="section-title">
+      <span class="label">CALCULATOR</span>
+      <h2>Kalkulator</h2>
+    </div>
+
+    <div class="calculator">
+
+      <input
+        id="calcDisplay"
+        class="calc-display"
+        value="0"
+        readonly
+      >
+
+      <div class="calc-grid">
+
+        <button class="calc danger" data-action="clear">AC</button>
+        <button class="calc" data-action="back">⌫</button>
+        <button class="calc operator" data-value="%">%</button>
+        <button class="calc operator" data-value="/">÷</button>
+
+        <button class="calc" data-value="7">7</button>
+        <button class="calc" data-value="8">8</button>
+        <button class="calc" data-value="9">9</button>
+        <button class="calc operator" data-value="*">×</button>
+
+        <button class="calc" data-value="4">4</button>
+        <button class="calc" data-value="5">5</button>
+        <button class="calc" data-value="6">6</button>
+        <button class="calc operator" data-value="-">−</button>
+
+        <button class="calc" data-value="1">1</button>
+        <button class="calc" data-value="2">2</button>
+        <button class="calc" data-value="3">3</button>
+        <button class="calc operator" data-value="+">+</button>
+
+        <button class="calc zero" data-value="0">0</button>
+        <button class="calc" data-value=".">.</button>
+        <button class="calc equal" data-action="equal">=</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STOPWATCH -->
+
+  <section id="stopwatch" class="panel">
+
+    <div class="section-title">
+      <span class="label">STOPWATCH</span>
+      <h2>Stopwatch</h2>
+    </div>
+
+    <div class="card stopwatch-card">
+
+      <div id="stopwatchDisplay" class="timer">
+        00:00:00.00
+      </div>
+
+      <div class="buttons">
+
+        <button id="startStopwatch" class="primary">
+          Mulai
+        </button>
+
+        <button id="lapStopwatch">
+          Lap
+        </button>
+
+        <button id="resetStopwatch">
+          Reset
+        </button>
+
+      </div>
+
+      <div id="laps"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- QR -->
+
+  <section id="qr" class="panel">
+
+    <div class="section-title">
+      <span class="label">QR SCANNER</span>
+      <h2>Scan QR Code / Barcode</h2>
+
+      <p>
+        Izinkan akses kamera ketika browser memintanya.
+      </p>
+    </div>
+
+    <div class="two-column">
+
+      <div class="card">
+
+        <div id="qr-reader"></div>
+
+        <div class="buttons">
+
+          <button id="startQR" class="primary">
+            Mulai Scanner
+          </button>
+
+          <button id="stopQR">
+            Hentikan
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Hasil Scan</h3>
+
+        <div id="qrResult" class="result">
+          Belum ada hasil.
+        </div>
+
+        <button id="copyQR">
+          Salin Hasil
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- GPS -->
+
+  <section id="gps" class="panel">
+
+    <div class="section-title">
+      <span class="label">GPS LOCATION</span>
+      <h2>Lokasi GPS</h2>
+    </div>
+
+    <div class="card">
+
+      <div id="gpsStatus" class="status">
+        Tekan tombol untuk mendapatkan lokasi.
+      </div>
+
+      <div class="data-grid">
+
+        <div>
+          <small>Latitude</small>
+          <strong id="latitude">—</strong>
+        </div>
+
+        <div>
+          <small>Longitude</small>
+          <strong id="longitude">—</strong>
+        </div>
+
+        <div>
+          <small>Akurasi</small>
+          <strong id="accuracy">—</strong>
+        </div>
+
+        <div>
+          <small>Ketinggian</small>
+          <strong id="altitude">—</strong>
+        </div>
+
+      </div>
+
+      <div class="buttons">
+
+        <button id="getGPS" class="primary">
+          📍 Dapatkan Lokasi
+        </button>
+
+        <button id="openMaps" disabled>
+          🗺️ Buka Maps
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- KIBLAT -->
+
+  <section id="qibla" class="panel">
+
+    <div class="section-title">
+
+      <span class="label">QIBLA FINDER</span>
+
+      <h2>Arah Kiblat Makkah</h2>
+
+      <p>
+        Gunakan GPS untuk menghitung arah kiblat dari lokasi Anda.
+      </p>
+
+    </div>
+
+    <div class="qibla-card">
+
+      <div class="compass">
+
+        <span class="north">N</span>
+        <span class="east">E</span>
+        <span class="south">S</span>
+        <span class="west">W</span>
+
+        <div id="qiblaNeedle" class="needle">
+          ▲
+        </div>
+
+        <div class="kaaba">
+          🕋
+        </div>
+
+      </div>
+
+      <div class="qibla-info">
+
+        <div id="qiblaDegree" class="degree">
+          —°
+        </div>
+
+        <p id="qiblaText">
+          Ambil lokasi terlebih dahulu.
+        </p>
+
+        <button id="qiblaGPS" class="primary">
+          📍 Gunakan GPS
+        </button>
+
+        <p class="note">
+          Perhitungan menggunakan bearing dari utara sejati
+          menuju Ka'bah di Makkah.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CUACA -->
+
+  <section id="weather" class="panel">
+
+    <div class="section-title">
+
+      <span class="label">WEATHER</span>
+
+      <h2>Prediksi Cuaca</h2>
+
+      <p>
+        Data cuaca menggunakan Open-Meteo.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="weather-main">
+
+        <div id="weatherIcon" class="weather-icon">
+          ☁️
+        </div>
+
+        <div>
+
+          <div id="temperature" class="temperature">
+            —°C
+          </div>
+
+          <div id="weatherDescription">
+            Belum ada data
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="data-grid">
+
+        <div>
+          <small>Lokasi</small>
+          <strong id="weatherLocation">—</strong>
+        </div>
+
+        <div>
+          <small>Kelembapan</small>
+          <strong id="humidity">—</strong>
+        </div>
+
+        <div>
+          <small>Kecepatan Angin</small>
+          <strong id="wind">—</strong>
+        </div>
+
+        <div>
+          <small>Update</small>
+          <strong id="weatherUpdate">—</strong>
+        </div>
+
+      </div>
+
+      <button id="weatherBtn" class="primary">
+        🌤️ Gunakan GPS & Muat Cuaca
+      </button>
+
+      <div id="forecast" class="forecast"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LAINNYA -->
+
+  <section id="tools" class="panel">
+
+    <div class="section-title">
+
+      <span class="label">EXTRA TOOLS</span>
+
+      <h2>Alat Tambahan</h2>
+
+    </div>
+
+    <div class="tools-grid">
+
+      <!-- Random -->
+
+      <div class="tool card">
+
+        <div class="tool-icon">🎲</div>
+
+        <h3>Random Number</h3>
+
+        <p>Generate angka secara acak.</p>
+
+        <div class="input-row">
+
+          <input id="minNumber" type="number" value="1">
+
+          <input id="maxNumber" type="number" value="100">
+
+        </div>
+
+        <button id="randomBtn">
+          Acak
+        </button>
+
+        <div id="randomResult" class="tool-result">
+          —
+        </div>
+
+      </div>
+
+
+      <!-- Text -->
+
+      <div class="tool card">
+
+        <div class="tool-icon">📝</div>
+
+        <h3>Text Counter</h3>
+
+        <p>Hitung karakter dan kata.</p>
+
+        <textarea
+          id="textInput"
+          placeholder="Tulis sesuatu..."
+        ></textarea>
+
+        <div class="counter">
+
+          <b id="characters">0</b>
+          karakter
+
+          ·
+
+          <b id="words">0</b>
+          kata
+
+        </div>
+
+      </div>
+
+
+      <!-- Password -->
+
+      <div class="tool card">
+
+        <div class="tool-icon">🔐</div>
+
+        <h3>Password Generator</h3>
+
+        <p>Buat password acak.</p>
+
+        <div id="passwordResult" class="password">
+          Klik Generate
+        </div>
+
+        <button id="passwordBtn">
+          Generate
+        </button>
+
+      </div>
+
+
+      <!-- Countdown -->
+
+      <div class="tool card">
+
+        <div class="tool-icon">⏲️</div>
+
+        <h3>Countdown Timer</h3>
+
+        <p>Timer sederhana.</p>
+
+        <div class="input-row">
+
+          <input
+            id="countMinutes"
+            type="number"
+            value="1"
+            min="0"
+            placeholder="Menit"
+          >
+
+          <input
+            id="countSeconds"
+            type="number"
+            value="0"
+            min="0"
+            placeholder="Detik"
+          >
+
+        </div>
+
+        <div id="countDisplay" class="count-display">
+          01:00
+        </div>
+
+        <button id="countStart">
+          Mulai
+        </button>
+
+        <button id="countReset">
+          Reset
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  Utility Hub © 2026 · Smart Tools
+</footer>
+
+</body>
+</html>
